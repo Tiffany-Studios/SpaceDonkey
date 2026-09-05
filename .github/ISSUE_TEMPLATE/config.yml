@@ -1,0 +1,10 @@
+blank_issues_enabled: true
+contact_links:
+  - name: The wiki — prior art, arguments, synthesis
+    url: https://github.com/Tiffany-Studios/SpaceDonkey/wiki
+    about:
+      Prose belongs in the wiki. Open an issue when something needs doing, deciding or
+      checking.
+  - name: Development Architecture
+    url: https://github.com/Tiffany-Studios/SpaceDonkey/wiki/Development-Architecture
+    about: How humans and machines are meant to work together here.

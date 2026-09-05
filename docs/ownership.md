@@ -37,17 +37,33 @@ Every GitHub surface gets a declared function before it is used.
 The point is to decide what a surface is _for_ before its affordances decide for us. A
 tool adopted because it was there tends to reshape the process around itself.
 
-| Surface       | Declared function                         | Gate available           |
-| ------------- | ----------------------------------------- | ------------------------ |
-| Repository    | Executable evidence                       | Pull request, CI, owners |
-| Wiki          | Current model of the architecture         | None                     |
-| Pull requests | The human gate                            | `pr-policy`              |
-| Actions       | Predetermined mechanical checks only      | —                        |
-| Issues        | Falsifiable open questions and kill tests | —                        |
-| Releases      | Frozen research checkpoints               | —                        |
+| Surface       | Declared function                        | Gate available           |
+| ------------- | ---------------------------------------- | ------------------------ |
+| Repository    | Executable evidence                      | Pull request, CI, owners |
+| Wiki          | Current model of the architecture        | None                     |
+| Pull requests | The human gate                           | `pr-policy`              |
+| Actions       | Predetermined mechanical checks only     | —                        |
+| Issues        | Public intake: questions, reports, ideas | —                        |
+| Releases      | Frozen research checkpoints              | —                        |
 
-Discussions and Projects have no declared function and are therefore not in use. That is
-the rule working, not an oversight.
+| Projects | Private planning and prioritization | — |
+
+Discussions have no declared function and are therefore not in use. That is the rule
+working, not an oversight.
+
+**Issues were narrowed to "falsifiable open questions and kill tests" when this table
+was written, before the surface had been used.** Held to literally, that excludes a
+broken build, a figure that misrepresents something, and a newcomer saying "this looks
+wrong to me" — all of which belong somewhere, and none of which belong in the wiki or in
+a pull request. The declared function is therefore widened to public intake. Kill tests
+remain the most valuable thing an issue can carry; they are no longer the only thing it
+may.
+
+**Projects was declared out of use, and then used.** A board now exists and holds
+sixteen cards. Declaring it after the fact is the weaker order and is noted as such. Its
+function is private planning and prioritization: the place where many possible ideas get
+reduced to the few worth acting on. It is deliberately not a gate — nothing has to
+appear on it, and it stands in front of nothing.
 
 ## Single source of truth
 
