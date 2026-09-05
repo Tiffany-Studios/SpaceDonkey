@@ -5,9 +5,12 @@ name: pr-policy
 # Threat model, stated plainly: a checkbox in a pull request body is an
 # attestation, not a security control. An agent with write access can tick it.
 # The real controls are (a) GitHub refuses to merge a draft pull request and
-# (b) branch protection requiring a CODEOWNERS review. This workflow makes the
-# process legible and catches the honest mistake; it does not defend against a
-# determined one. See docs/branch-protection.md for the settings that do.
+# (b) the ruleset on main requiring an approving review, which an author cannot
+# give themselves. Code Owners review is deliberately off, so CODEOWNERS is a
+# notification rather than a gate. Nobody bypasses the ruleset, administrators
+# included. This workflow makes the process legible and catches the honest
+# mistake; it does not defend against a determined one. See
+# docs/branch-protection.md for the settings that do.
 
 on:
   pull_request:
@@ -23,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: check attribution and review state
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const pr = context.payload.pull_request;
