@@ -45,8 +45,7 @@ tool adopted because it was there tends to reshape the process around itself.
 | Actions       | Predetermined mechanical checks only | —                        |
 | Issues        | Optional coordination and tasks      | —                        |
 | Releases      | Frozen research checkpoints          | —                        |
-
-| Projects | Private planning and prioritization | — |
+| Projects      | Private planning and prioritization  | —                        |
 
 Discussions have no declared function and are therefore not in use. That is the rule
 working, not an oversight.
@@ -71,24 +70,52 @@ function is private planning and prioritization: the place where many possible i
 reduced to the few worth acting on. It is deliberately not a gate — nothing has to
 appear on it, and it stands in front of nothing.
 
-## Single source of truth
+## Authoritative homes, and detectable drift
 
-Any one piece of content has exactly one place it is edited. Everything else links to it
-or is generated from it. Nothing is maintained in two places, ever.
+> Each claim has a declared authoritative home. Redundant representations are allowed
+> when their relationship is explicit and drift can be detected.
 
-The split is **by content type, not by repository**. The test:
+Declared by Paul, and it replaces an earlier absolute — "nothing is maintained in two
+places, ever" — which optimized for tidiness at the cost of robustness. A single copy
+has nothing to fall back on when the chain breaks, and a rule forbidding restatement
+rules out the cheapest form of cross-checking.
 
-> Can CI check it?
+The split between repository and wiki is **by content type, not by repository**:
 
-Yes → repository. Parameter files, generated figures, code, CI configuration,
-contributor mechanics. Gated, blocking, reviewed before it lands.
+Mechanically checkable → repository. Parameter files, generated figures, code, CI
+configuration, contributor mechanics. Gated, blocking, reviewed before it lands.
 
-No → wiki. Architecture, reasoning, prior art, kill criteria, the current model.
-Ungated, advisory, published on save.
+Interpretive → wiki. Architecture, reasoning, prior art, kill criteria, the current
+model. Ungated, advisory, published on save.
 
-These are different content, so there is no drift risk between them. The question "repo
-or wiki?" only felt hard while we were treating it as one decision about one body of
-material.
+**That is a heuristic about content, not a limit on what CI can reach.** The wiki is a
+git repository and clones without authentication, so a scheduled job can diff it or
+check that two statements of the same claim still agree. Treating "CI cannot see the
+wiki" as a fact understates the machine layer, and one of this project's goals is that
+the interface between surfaces be auditable rather than assumed.
+
+### Where the surfaces are declared
+
+Two tables describe the surfaces. They are not copies of one another:
+
+| Table                       | Authoritative for                                         |
+| --------------------------- | --------------------------------------------------------- |
+| `Human-Commons` on the wiki | What each surface is **for**, and what authority it holds |
+| The table above             | Which GitHub mechanisms exist, and **what gates each**    |
+
+They overlap on three rows — Issues, wiki, repository — and must agree there. They
+differ deliberately elsewhere: the wiki page carries the human commons and CI, which are
+not GitHub settings; this document carries pull requests, Actions, Releases and
+Projects, which are.
+
+Where they overlap, **the wiki is authoritative for meaning and this document is
+authoritative for mechanism.** If the two disagree about what Issues are for, the wiki
+is right and this document is stale.
+
+That redundancy is deliberate and licensed by the rule above: the relationship is stated
+here, and the drift is detectable in principle. **Nothing detects it automatically
+yet.** Until something does, this section is a promise rather than a control, and it is
+written down so the gap is visible.
 
 ## Why both a gate and no gate is coherent
 
