@@ -40,14 +40,27 @@ handoff is a trap.
 
 ## 3. Audit the public surfaces
 
-This repository publishes to more places than it used to: the default branch, every
-pushed branch, pull request bodies, review comments, issues, project board cards, and
-the wiki. Anything reachable by someone who is not you is in scope.
+Anything reachable by someone who is not you is in scope. That is more than it was, and
+**it grows without warning** — this list gained four entries in a single afternoon, the
+day a new repository went from not existing to being publicly listed.
 
-Check that nothing from an unrelated context reached any of them. A grep of the default
-branch alone is not the audit — it is the cheapest sixth of it.
+Within a repository: the default branch, every pushed branch, pull request bodies,
+review comments, issues, and project board cards. Alongside it: the wiki. Across the
+organisation: **every other repository it owns**, their release notes, any package or
+marketplace listing published from them, and the organisation's own profile fields —
+description, profile README, topics, homepage.
 
-Report the counts. "Clean across six surfaces" is a result; "looks fine" is not.
+Release notes and listing copy are the ones most often missed, because they are written
+once, in a hurry, at the moment of shipping, and never diffed again.
+
+Check the histories as well as the trees. A commit message is as public as a file.
+
+**Do not hardcode a count.** An earlier version of this skill said "the cheapest sixth
+of it", and the arithmetic was wrong within a week. Report what you checked and what
+each returned: "clean across eight surfaces" is a result; "looks fine" is not.
+
+**If this session published something new, say so in the handoff**, so the next audit
+starts from the longer list rather than rediscovering it.
 
 ## 4. Check the pickup prompt names the next task
 
@@ -81,6 +94,7 @@ Write `.scratch/NEXT-SESSION.md` with these sections, in this order:
 | Threads          | The live work. Reasoning, not just status                                 |
 | Open, lower      | Real but not urgent                                                       |
 | Dangling         | From step 2                                                               |
+| CLI gotchas      | Commands that cost a round trip, with the form that worked                |
 | Improvement      | From step 5                                                               |
 
 Two rules about the validation block, both learned the hard way:
@@ -91,6 +105,11 @@ Two rules about the validation block, both learned the hard way:
 - **Say when something is known-dirty or known-inert, and why it was left.** A check
   that fails every session and is meant to trains everyone to ignore the block. Mark it,
   and name whose decision it is.
+
+The CLI gotchas row earns its place because the handoff is gitignored, which makes it
+the one file allowed to record environment-specific truths. A command that failed twice
+and worked on the third attempt costs the same three attempts next session unless the
+working form is written down. Record the form that worked, not the ones that did not.
 
 Write the threads for someone with no memory of the conversation. State what was
 decided, what was deliberately **not** decided, and the reasoning. A thread that records
