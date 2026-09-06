@@ -27,6 +27,71 @@ python tools/figures/ringgen.py --all --check
 `ringgen.py` itself needs no dependencies. It is standard library only, by design, so
 anyone can regenerate a figure without setting up an environment.
 
+## Opening an issue
+
+Issues are public. Anyone with a GitHub account can open one — no review, no approval,
+no standard of authorship. That is deliberate.
+
+**An issue is never required.** Not before editing the wiki, not before opening a pull
+request.
+
+Some of us use issues as a personal planning surface: a to-do list kept with the project
+rather than beside a desk, and the place where a few ideas out of very many get chosen
+to act on. That is a working habit, not a rule. It is also part of why issues cannot be
+a shared obligation — a surface that doubles as somebody's private ordering of their own
+ideas is not a gate anyone else should have to pass through.
+
+You do not need to be technical, and you do not need to be right. "This looks wrong to
+me" is a complete report. Three templates give a shape — **Idea or claim**,
+**Question**, **Problem** — and a blank issue is always available if none of them fit.
+Delete any heading you do not need.
+
+### Three surfaces, three standards
+
+Separate doors, not a sequence. Work may begin in an issue, directly in the wiki, or
+directly in a pull request. Nothing has to pass through one to reach another.
+
+| Surface | What it is                                     |
+| ------- | ---------------------------------------------- |
+| Issues  | An optional coordination and task surface      |
+| Wiki    | The directly published human synthesis surface |
+| `main`  | The mechanically reviewed executable record    |
+
+The wiki's gate is human authorship and editorial authority — a property of the
+contributor, not a process they completed. `main`'s gate is mechanical. Issues have
+neither.
+
+Issues being the ungated surface is exactly why they cannot stand in front of the
+others: routing a wiki contribution through a channel with no authorship standard would
+defeat the standard.
+
+### Labels
+
+Alongside GitHub's defaults, the labels below carry meaning here. People or agents with
+appropriate repository permission may apply them. **A label requests work; it does not
+grant an agent authority to act, or to write to the wiki.**
+
+| Label            | Means                                         |
+| ---------------- | --------------------------------------------- |
+| `idea`           | A proposal or claim worth exploring           |
+| `needs-citation` | A claim is asserted without a source          |
+| `needs-check`    | Wants a skeptical read before it is relied on |
+| `needs-model`    | Wants to be computed rather than asserted     |
+| `wiki`           | Concerns the wiki surface                     |
+| `repo`           | Concerns this repository                      |
+| `chore`          | Maintenance: dependencies, link rot, cleanup  |
+
+The three `needs-` labels exist so a machine can hand work back to a human, or pick it
+up, without either having to guess. They are requests, not judgments.
+
+These labels were created by an agent session — Claude Code,
+[session record](https://claude.ai/code/session_01AvwZT6wQHRwjp9vDNc7DAJ) — at
+@derektiffany's direction, and were already live before this table existed. Labels are
+repository settings rather than files, so what follows is the **reviewed declaration of
+the intended taxonomy**, not a record of how it came to be. The settings were mutated
+outside the gate and described inside it; that is the weaker order, and the same order
+the `main` ruleset was configured in. Change this table if you change the settings.
+
 ## Before you open a pull request
 
 Run the formatter, then the checks:
@@ -129,9 +194,13 @@ persistence or context between agent sessions is an intended workflow.
 ### What the gate actually is
 
 Be clear-eyed: a checkbox is an attestation, not a control. The real controls are GitHub
-refusing to merge drafts, and branch protection requiring a CODEOWNERS review. See
-[`docs/branch-protection.md`](docs/branch-protection.md) for the settings, which have to
-be configured by hand.
+refusing to merge drafts, and the ruleset on `main` requiring an approving review —
+which an author cannot give themselves, so it takes two humans. Nobody bypasses it,
+administrators included.
+
+Code Owners review is deliberately **off**, so `CODEOWNERS` is a notification rather
+than a gate. See [`docs/branch-protection.md`](docs/branch-protection.md) for the
+settings as configured, and for the break-glass route.
 
 ### Attribution in commits
 

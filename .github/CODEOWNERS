@@ -1,5 +1,11 @@
-# Every change to main requires review from a human owner.
-# Pair this with branch protection: Require review from Code Owners.
+# This file requests review. It does not require it.
+#
+# "Require review from Code Owners" is deliberately OFF in the main ruleset, so
+# an entry here auto-requests a review from the owner and nothing more. The gate
+# is the ruleset's required approving review, which any second human satisfies.
+#
+# Turning Code Owners review on would make every entry below a hard block on
+# every matching change. Do not enable it without asking a human first.
 # See docs/branch-protection.md.
 
 *                     @PaulTiffany
