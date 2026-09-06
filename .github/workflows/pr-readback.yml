@@ -1,0 +1,65 @@
+name: pr-readback
+
+# The reusable entry point. This wraps .github/actions/pr-readback so that a
+# repository can adopt the gate with `uses:` and no configuration, rather than
+# checking out an action.
+#
+# It exists here to prove the shape before the action is extracted to its own
+# repository. Scope, stated plainly: this is proven for callers in this
+# repository only. A reusable workflow resolves "./" against the calling
+# repository's checkout, not its own, so a caller in another repository would
+# find no action at that path. Extraction has to replace the relative path below
+# with a pinned "owner/pr-readback/.github/actions/pr-readback@vX" reference.
+# That is a real gap, not an oversight.
+#
+# SpaceDonkey's own gate does not go through this file. It calls the action
+# directly from pr-policy.yml, because a reusable workflow call would rename the
+# status check to "caller / callee" and the main ruleset requires the check named
+# "human gate for main" exactly.
+
+on:
+  workflow_call:
+    inputs:
+      base-branch:
+        description: Apply the gate only to pull requests targeting this branch.
+        type: string
+        required: false
+        default: main
+      review-label:
+        description: Text identifying the self-attestation checkbox.
+        type: string
+        required: false
+        default: I have reviewed my own changes
+      attribution-labels:
+        description: Labels, one per line, of which exactly one must be ticked.
+        type: string
+        required: false
+        default: |
+          Human-authored
+          Agent-assisted
+          Agent-authored
+      guidance:
+        description: A sentence appended to any failure message.
+        type: string
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  readback:
+    name: readback
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: ./.github/actions/pr-readback
+        with:
+          base-branch: ${{ inputs.base-branch }}
+          review-label: ${{ inputs.review-label }}
+          attribution-labels: ${{ inputs.attribution-labels }}
+          guidance: ${{ inputs.guidance }}
