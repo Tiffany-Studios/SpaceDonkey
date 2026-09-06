@@ -1,0 +1,26 @@
+name: pr-readback-selftest
+
+# Calls the reusable workflow so that it actually executes. Without a caller,
+# pr-readback.yml is YAML that has never run, and "the reusable entry point
+# works" would be an untested claim.
+#
+# This check is deliberately NOT in the main ruleset. It duplicates the verdict
+# that "human gate for main" already reports, so requiring it would add a second
+# way to block main for the same reason. It is here to prove the path, and it is
+# safe to delete once the action lives in its own repository with its own tests.
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened, ready_for_review, converted_to_draft]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  selftest:
+    name: readback self-test
+    uses: ./.github/workflows/pr-readback.yml
+    with:
+      base-branch: main
+      guidance: See AGENTS.md and CONTRIBUTING.md.
