@@ -10,10 +10,10 @@ is the thing this document is trying to be.
 
 Declared by Paul, and recorded here rather than restated elsewhere:
 
-| Surface                   | Owner | Purpose                                                                                                                     |
-| ------------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------- |
-| `SpaceDonkey.wiki.git`    | Paul  | Fortify and celebrate prior art, distinguish established physics from speculation, teach the history, develop the synthesis |
-| `PaulTiffany/SpaceDonkey` | Derek | Executable evidence: code, parameters, generated figures, CI, contributor mechanics                                         |
+| Surface                       | Owner | Purpose                                                                                                                     |
+| ----------------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------- |
+| `SpaceDonkey.wiki.git`        | Paul  | Fortify and celebrate prior art, distinguish established physics from speculation, teach the history, develop the synthesis |
+| `Tiffany-Studios/SpaceDonkey` | Derek | Executable evidence: code, parameters, generated figures, CI, contributor mechanics                                         |
 
 The boundary binds agents, not only people, and it binds in both directions:
 
@@ -37,36 +37,85 @@ Every GitHub surface gets a declared function before it is used.
 The point is to decide what a surface is _for_ before its affordances decide for us. A
 tool adopted because it was there tends to reshape the process around itself.
 
-| Surface       | Declared function                         | Gate available           |
-| ------------- | ----------------------------------------- | ------------------------ |
-| Repository    | Executable evidence                       | Pull request, CI, owners |
-| Wiki          | Current model of the architecture         | None                     |
-| Pull requests | The human gate                            | `pr-policy`              |
-| Actions       | Predetermined mechanical checks only      | —                        |
-| Issues        | Falsifiable open questions and kill tests | —                        |
-| Releases      | Frozen research checkpoints               | —                        |
+| Surface       | Declared function                    | Gate available           |
+| ------------- | ------------------------------------ | ------------------------ |
+| Repository    | Executable evidence                  | Pull request, CI, owners |
+| Wiki          | Current model of the architecture    | None                     |
+| Pull requests | The human gate                       | `pr-policy`              |
+| Actions       | Predetermined mechanical checks only | —                        |
+| Issues        | Optional coordination and tasks      | —                        |
+| Releases      | Frozen research checkpoints          | —                        |
+| Projects      | Private planning and prioritization  | —                        |
 
-Discussions and Projects have no declared function and are therefore not in use. That is
-the rule working, not an oversight.
+Discussions have no declared function and are therefore not in use. That is the rule
+working, not an oversight.
 
-## Single source of truth
+**Issues were narrowed to "falsifiable open questions and kill tests" when this table
+was written, before the surface had been used.** Held to literally, that excludes a
+broken build, a figure that misrepresents something, and a newcomer saying "this looks
+wrong to me" — all of which belong somewhere, and none of which belong in the wiki or in
+a pull request. The declared function is therefore widened to optional coordination and
+tasks. Kill tests remain the most valuable thing an issue can carry; they are no longer
+the only thing it may.
 
-Any one piece of content has exactly one place it is edited. Everything else links to it
-or is generated from it. Nothing is maintained in two places, ever.
+Deliberately **not** called an intake surface. That phrasing was proposed in review and
+then withdrawn by its author, because calling Issues the intake makes them
+architecturally upstream of wiki edits and pull requests — a precedence this project
+does not want. Work may start in an issue, in the wiki, or in a pull request. Governance
+discussion may happen in issues without making issues a governance gate.
 
-The split is **by content type, not by repository**. The test:
+**Projects was declared out of use, and then used.** A board now exists and holds
+sixteen cards. Declaring it after the fact is the weaker order and is noted as such. Its
+function is private planning and prioritization: the place where many possible ideas get
+reduced to the few worth acting on. It is deliberately not a gate — nothing has to
+appear on it, and it stands in front of nothing.
 
-> Can CI check it?
+## Authoritative homes, and detectable drift
 
-Yes → repository. Parameter files, generated figures, code, CI configuration,
-contributor mechanics. Gated, blocking, reviewed before it lands.
+> Each claim has a declared authoritative home. Redundant representations are allowed
+> when their relationship is explicit and drift can be detected.
 
-No → wiki. Architecture, reasoning, prior art, kill criteria, the current model.
-Ungated, advisory, published on save.
+Declared by Paul, and it replaces an earlier absolute — "nothing is maintained in two
+places, ever" — which optimized for tidiness at the cost of robustness. A single copy
+has nothing to fall back on when the chain breaks, and a rule forbidding restatement
+rules out the cheapest form of cross-checking.
 
-These are different content, so there is no drift risk between them. The question "repo
-or wiki?" only felt hard while we were treating it as one decision about one body of
-material.
+The split between repository and wiki is **by content type, not by repository**:
+
+Mechanically checkable → repository. Parameter files, generated figures, code, CI
+configuration, contributor mechanics. Gated, blocking, reviewed before it lands.
+
+Interpretive → wiki. Architecture, reasoning, prior art, kill criteria, the current
+model. Ungated, advisory, published on save.
+
+**That is a heuristic about content, not a limit on what CI can reach.** The wiki is a
+git repository and clones without authentication, so a scheduled job can diff it or
+check that two statements of the same claim still agree. Treating "CI cannot see the
+wiki" as a fact understates the machine layer, and one of this project's goals is that
+the interface between surfaces be auditable rather than assumed.
+
+### Where the surfaces are declared
+
+Two tables describe the surfaces. They are not copies of one another:
+
+| Table                       | Authoritative for                                         |
+| --------------------------- | --------------------------------------------------------- |
+| `Human-Commons` on the wiki | What each surface is **for**, and what authority it holds |
+| The table above             | Which GitHub mechanisms exist, and **what gates each**    |
+
+They overlap on three rows — Issues, wiki, repository — and must agree there. They
+differ deliberately elsewhere: the wiki page carries the human commons and CI, which are
+not GitHub settings; this document carries pull requests, Actions, Releases and
+Projects, which are.
+
+Where they overlap, **the wiki is authoritative for meaning and this document is
+authoritative for mechanism.** If the two disagree about what Issues are for, the wiki
+is right and this document is stale.
+
+That redundancy is deliberate and licensed by the rule above: the relationship is stated
+here, and the drift is detectable in principle. **Nothing detects it automatically
+yet.** Until something does, this section is a promise rather than a control, and it is
+written down so the gap is visible.
 
 ## Why both a gate and no gate is coherent
 
@@ -126,11 +175,12 @@ wearing a CI badge.
    `docs/figures/README.md` is half mechanics ("run this to regenerate") and half
    argument about the world ("diffusion models have no representation of an orbital
    radius"). By the rule above, the argument belongs in the wiki.
-2. **`CODEOWNERS` now contradicts the declared boundary.** It assigns `*` to
-   @PaulTiffany, which combined with required Code Owner review means every change to
-   the surface Derek owns needs Paul's approval. This was ambiguous when the file was
-   written and is not any more. Deliberately not changed unilaterally in the pull
-   request that introduced it — it needs Paul's confirmation and Derek's handle.
+2. **`CODEOWNERS` still contradicts the declared boundary, but no longer bites.** It
+   assigns `*` to @PaulTiffany while the repository is the surface Derek maintains. That
+   would mean every change needed Paul's approval — except Code Owners review is
+   deliberately off in the ruleset, so the entry only auto-requests a review. The
+   contradiction is now inert rather than resolved, and resolving it properly still
+   needs Paul's confirmation and Derek's handle.
 3. **The wiki is unlicensed.** See [`branch-protection.md`](branch-protection.md).
    Sharper now that the wiki is the declared home of prior art: a surface whose stated
    purpose is to fortify and credit other people's work carries no license granting
