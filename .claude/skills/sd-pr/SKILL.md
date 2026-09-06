@@ -108,6 +108,69 @@ When a reviewer asks for concerns to be separated:
 
 5. Say in the body what you held back and where it went.
 
+## Claim only what you ran
+
+A pull request body is evidence. Three habits have each produced a false claim here, and
+a reviewer caught all three.
+
+**Say what actually executed.** A scheduled workflow does not run on a pull request. If
+its actions were not exercised, the checks passing proves nothing about them — write
+"read, not run" rather than letting six green ticks imply coverage they do not have.
+
+**A green run does not prove a gate still bites.** If a change touches something that is
+supposed to fail, make it fail on purpose and watch. Then put it back. Use a violation
+that is an omission rather than a false statement — never tick the human review box to
+test it, because that is the one lie the box exists to prevent.
+
+**Verify provenance before attributing.** Do not write "as decided on page X" without
+opening page X. An idea proposed in conversation is not a decision recorded on a page,
+and dressing one as the other invents authority for it. This has happened once already:
+three persona names were attributed to a wiki page that has never contained them.
+
+## Look for the drift you just created
+
+Changing a control means every description of that control is now suspect, including the
+ones in files you did not open.
+
+When Code Owners review was turned off, the fact was corrected in
+`docs/branch-protection.md`, then later in `.github/workflows/pr-policy.yml`, then later
+still in `CONTRIBUTING.md`, `.github/CODEOWNERS` and `docs/ownership.md`. Each round was
+prompted by a reviewer finding the next stale copy. One grep after the first change
+would have found all of them:
+
+```bash
+grep -rniE 'code ?owners? review|bypass|required approval|branch protection' \
+  --include='*.md' --include='*.yml' --include='CODEOWNERS' .
+```
+
+Do that sweep as part of the change, not after someone else notices.
+
+## Settings are not files, and the difference matters
+
+Rulesets, labels, branch protection and project boards are repository settings. An agent
+with a maintainer's credential can change them instantly, outside every gate, and no
+pull request is involved.
+
+That has happened three times here: the `main` ruleset, removing its bypass, and the
+label taxonomy. Each was authorized. Each was also **changed first and described
+afterwards**, which is the weaker order.
+
+So, when a change involves settings:
+
+- **Do not write that the pull request establishes them.** It does not. It
+  retrospectively documents a mutation made outside the gate. Say that plainly.
+- **Record who made the change and how**, in the reviewed record, since the audit log
+  will attribute it to the human whose credential was used.
+- **Check `docs/ownership.md` first.** Every GitHub surface there has a declared
+  function, and using one in a new way — or at all — is a surface-function decision, not
+  plumbing. Amend the declaration in the same pull request and say so in the title.
+
+## When bumping a version, bump what it asks for too
+
+Updating `actions/setup-node` while the workflow still requests an end-of-life runtime
+two lines below fixes the wrapper and not the problem. After any dependency bump, check
+what the thing is configured to use, not only what version of it is pinned.
+
 ## House rules worth remembering
 
 - **US English.** `cspell.json` loads `en_US`. British spellings are errors here, not
