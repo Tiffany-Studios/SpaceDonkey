@@ -2,6 +2,15 @@ name: pr-policy
 
 # Enforces the human gate on pull requests targeting main.
 #
+# The logic lives in .github/actions/pr-readback, which is written to be
+# repository-neutral so it can be extracted to its own repository later. This
+# file is the SpaceDonkey-specific configuration of it: which branch is gated,
+# which boxes count, and where to send someone who trips it.
+#
+# The job name below is a required status check on the main ruleset. Changing it
+# silently un-gates main, because the ruleset waits forever for a check name that
+# no longer reports. Leave it alone.
+#
 # Threat model, stated plainly: a checkbox in a pull request body is an
 # attestation, not a security control. An agent with write access can tick it.
 # The real controls are (a) GitHub refuses to merge a draft pull request and
@@ -25,74 +34,16 @@ jobs:
     name: human gate for main
     runs-on: ubuntu-latest
     steps:
-      - name: check attribution and review state
-        uses: actions/github-script@v9
+      - uses: actions/checkout@v7
         with:
-          script: |
-            const pr = context.payload.pull_request;
-            const base = pr.base.ref;
+          persist-credentials: false
 
-            if (base !== 'main') {
-              core.info(
-                `Base branch is "${base}", not main. Agent-opened and ` +
-                `agent-merged pull requests are permitted here. No gate applied.`
-              );
-              return;
-            }
-
-            const body = pr.body || '';
-            const checked = (label) =>
-              new RegExp(`^\\s*-\\s*\\[[xX]\\][^\\n]*${label}`, 'm').test(body);
-
-            const attribution = [
-              'Human-authored',
-              'Agent-assisted',
-              'Agent-authored',
-            ].filter(checked);
-
-            const problems = [];
-
-            if (attribution.length === 0) {
-              problems.push(
-                'No attribution selected. Tick exactly one box in the ' +
-                'Attribution section.'
-              );
-            } else if (attribution.length > 1) {
-              problems.push(
-                `Multiple attribution boxes ticked (${attribution.join(', ')}). ` +
-                'Tick exactly one.'
-              );
-            }
-
-            const reviewed = checked('I have reviewed my own changes');
-
-            if (pr.draft) {
-              core.info('Pull request is a draft. GitHub will not permit a merge.');
-              if (reviewed) {
-                problems.push(
-                  'The human review box is ticked on a draft. If a human has ' +
-                  'read the diff, promote the pull request to ready for review. ' +
-                  'If not, untick it.'
-                );
-              }
-            } else if (!reviewed) {
-              problems.push(
-                'This pull request is ready for review but the human review box ' +
-                'is not ticked. Agents must open pull requests to main as ' +
-                'drafts and leave that box alone; a human ticks it and promotes.'
-              );
-            }
-
-            if (problems.length) {
-              core.setFailed(
-                'Pull request policy for main not satisfied:\n\n  - ' +
-                problems.join('\n  - ') +
-                '\n\nSee AGENTS.md and CONTRIBUTING.md.'
-              );
-              return;
-            }
-
-            core.info(
-              `Policy satisfied. Attribution: ${attribution[0]}. ` +
-              `Draft: ${pr.draft}. Reviewed: ${reviewed}.`
-            );
+      - uses: ./.github/actions/pr-readback
+        with:
+          base-branch: main
+          review-label: I have reviewed my own changes
+          attribution-labels: |
+            Human-authored
+            Agent-assisted
+            Agent-authored
+          guidance: See AGENTS.md and CONTRIBUTING.md.
