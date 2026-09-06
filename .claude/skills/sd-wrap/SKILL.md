@@ -10,7 +10,12 @@ may hold environment-specific detail: absolute paths, which commands are on `PAT
 which address to commit as. Keep that detail out of everything committed, including this
 directory.
 
-Work through the five steps below, then write the file.
+**This is an aid, not a mandate.** It is one person's ritual, written down so it can be
+reused, argued with, or ignored. Nothing here gates a merge, blocks a session, or
+obliges anyone. Skip a step that does not apply and say which one you skipped — that is
+a complete use of this skill, not a failure to follow it.
+
+Five steps, then write the file.
 
 ## 1. Flag what has gone stale
 
@@ -38,29 +43,40 @@ raised in review, a branch that can be deleted, a backup file left somewhere.
 A half-done thing named in the handoff is a task. A half-done thing not named in the
 handoff is a trap.
 
-## 3. Audit the public surfaces
+## 3. Audit what this session made public
 
-Anything reachable by someone who is not you is in scope. That is more than it was, and
-**it grows without warning** — this list gained four entries in a single afternoon, the
-day a new repository went from not existing to being publicly listed.
+The invariant worth keeping is narrow: **name what became public, and what may have
+drifted.** Not "crawl the organisation."
 
-Within a repository: the default branch, every pushed branch, pull request bodies,
-review comments, issues, and project board cards. Alongside it: the wiki. Across the
-organisation: **every other repository it owns**, their release notes, any package or
-marketplace listing published from them, and the organisation's own profile fields —
-description, profile README, topics, homepage.
+An earlier version of this step required auditing every branch, pull request body,
+review comment, issue, board card, repository, release, listing, organisation field and
+commit history, every time. That scope grows monotonically and eventually cannot be
+discharged honestly — at which point it gets performed as theatre or skipped, and a
+skipped check that everyone believes ran is worse than no check. Bounded instead, to
+three things:
 
-Release notes and listing copy are the ones most often missed, because they are written
-once, in a hurry, at the moment of shipping, and never diffed again.
+1. **Surfaces this session changed or published.** If you pushed a branch, edited a pull
+   request body, filed an issue, wrote release notes, published a listing or touched an
+   organisation field, check that one. You know what you touched.
+2. **Anything the incoming handoff names as known-dirty or high-risk.** Those are
+   flagged precisely so they get re-checked without re-deriving the list.
+3. **Any maintained check whose result can be reported without re-reading the
+   organisation by hand.** Run it and report what it returned.
 
-Check the histories as well as the trees. A commit message is as public as a file.
+Report what you checked and what each returned. **Do not report a count you did not
+verify**, and do not imply coverage you did not have: "clean across the four surfaces
+this session touched" is honest; "clean" is not.
 
-**Do not hardcode a count.** An earlier version of this skill said "the cheapest sixth
-of it", and the arithmetic was wrong within a week. Report what you checked and what
-each returned: "clean across eight surfaces" is a result; "looks fine" is not.
+A **broader sweep across the whole organisation is a legitimate task in its own right**
+— worth doing occasionally, or as a scheduled witness. It is not part of closing a
+session, and it should never become mandatory by accident.
 
-**If this session published something new, say so in the handoff**, so the next audit
-starts from the longer list rather than rediscovering it.
+For reference when deciding whether something you touched counts: public surfaces
+include the default branch, pushed branches, pull request bodies and review comments,
+issues, board cards, the wiki, other repositories in the organisation, release notes,
+package or marketplace listings, organisation profile fields, and commit histories — a
+commit message is as public as a file. **That is an inventory to check against, not a
+checklist to complete.**
 
 ## 4. Check the pickup prompt names the next task
 

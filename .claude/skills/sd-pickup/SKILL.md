@@ -19,6 +19,30 @@ Read the whole file before running anything. In particular read its "threads" se
 items are frequently left open **on purpose**, with the reasoning recorded. Re-deciding
 one from first principles wastes the session that decided it.
 
+### When there is no handoff
+
+Because it is gitignored, it will often be absent: a fresh clone, a different machine, a
+cleared scratch directory, or anyone who has never run a session here. **That is a
+normal starting state, not an error, and not a signal that something was lost.**
+
+**Absence must not invite you to invent prior state.** Do not reconstruct a plausible
+handoff from git history, open pull requests or memory and then proceed as though it
+were handed to you. A guessed pickup reads exactly like a real one and is worse than
+none.
+
+Instead:
+
+1. **Say plainly that no handoff exists** and that you are starting from the committed
+   repository alone.
+2. **Run the committed checks** — the suite in `AGENTS.md` under "Commands", at the
+   pinned versions in `sd-pr`. Those live in the repository, so they work with no
+   handoff.
+3. **Confirm the task with the human before starting it.** With no handoff there is no
+   pickup prompt, so there is nothing to infer intent from. Ask.
+4. **Do not write a handoff at pickup.** The first one is written at the wrap,
+   describing what this session actually did. A handoff authored before the work is a
+   prediction wearing the costume of a record.
+
 ## 2. Run the validation block, and report
 
 The handoff carries a validation block. Run it, then report what passed and what failed,
