@@ -10,10 +10,10 @@ is the thing this document is trying to be.
 
 Declared by Paul, and recorded here rather than restated elsewhere:
 
-| Surface                   | Owner | Purpose                                                                                                                     |
-| ------------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------- |
-| `SpaceDonkey.wiki.git`    | Paul  | Fortify and celebrate prior art, distinguish established physics from speculation, teach the history, develop the synthesis |
-| `PaulTiffany/SpaceDonkey` | Derek | Executable evidence: code, parameters, generated figures, CI, contributor mechanics                                         |
+| Surface                       | Owner | Purpose                                                                                                                     |
+| ----------------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------- |
+| `SpaceDonkey.wiki.git`        | Paul  | Fortify and celebrate prior art, distinguish established physics from speculation, teach the history, develop the synthesis |
+| `Tiffany-Studios/SpaceDonkey` | Derek | Executable evidence: code, parameters, generated figures, CI, contributor mechanics                                         |
 
 The boundary binds agents, not only people, and it binds in both directions:
 
