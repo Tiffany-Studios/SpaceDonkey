@@ -1,0 +1,40 @@
+// markdownlint-cli2 configuration.
+//
+// This file replaces .markdownlint.jsonc and .markdownlintignore. The latter did
+// nothing: markdownlint-cli2 does not read .markdownlintignore — that was markdownlint-cli
+// v1 — so every path it listed was still being linted. Exclusions live in "ignores" here,
+// or as "#"-prefixed globs on the command line. See issue #12.
+{
+  // Paths not linted. Command-line globs still apply on top of these.
+  "ignores": [
+    "node_modules/",
+    // Gitignored working files. CI never checks these out, so linting them locally
+    // produces failures CI cannot reproduce — which teaches everyone to skim past the
+    // summary line, where a real failure would appear.
+    ".scratch/"
+  ],
+  "config": {
+    // Not every document starts with an H1. CLAUDE.md opens with the @AGENTS.md
+    // import that Claude Code requires on the first line, the pull request
+    // template opens at H2 by design, and the repository README is a banner
+    // image. None of these should grow a heading to satisfy a linter.
+    "MD041": false,
+
+    // Line length is prettier's job. Enforcing it here as well produces
+    // conflicting fixes between the two tools.
+    "MD013": false,
+
+    // Duplicate headings are fine when nested under different parents.
+    "MD024": { "siblings_only": true },
+
+    // Inline HTML is needed for figure embeds, centred headers and <sub> notes.
+    "MD033": false,
+
+    // Bare URLs are caught by the link checker instead.
+    "MD034": false,
+
+    // Trailing punctuation in headings: allow question marks, since several
+    // section headings here are genuine questions.
+    "MD026": { "punctuation": ".,;:!" }
+  }
+}
